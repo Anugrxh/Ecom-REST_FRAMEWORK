@@ -1,3 +1,196 @@
+# Users API Documentation
+
+Base URL:  
+`http://127.0.0.1:8000/api/users/`
+
+---
+
+## Signup
+
+Create a new user account.
+
+- **Method:** POST  
+- **Endpoint:** `/signup/`  
+- **Authentication:** None  
+- **Content-Type:** `application/json`
+
+### Request Body:
+
+{
+"fullname": "John Doe",
+"email": "john@example.com",
+"password": "StrongPassword123"
+}
+
+
+### Response:
+
+- 201 Created with user data (except password)
+
+---
+
+## Login (Obtain JWT tokens)
+
+Authenticate user and receive access and refresh tokens.
+
+- **Method:** POST  
+- **Endpoint:** `/login/`  
+- **Authentication:** None  
+- **Content-Type:** `application/json`
+
+### Request Body:
+
+{
+"email": "john@example.com",
+"password": "StrongPassword123"
+}
+
+
+### Response:
+
+{
+"refresh": "<refresh_token>",
+"access": "<access_token>",
+"fullname": "John Doe" // custom claim added
+}
+
+
+---
+
+## Refresh Token
+
+Get new access token using refresh token.
+
+- **Method:** POST  
+- **Endpoint:** `/login/refresh/`  
+- **Authentication:** None  
+- **Content-Type:** `application/json`
+
+### Request Body:
+
+{
+"refresh": "<refresh_token>"
+}
+
+
+### Response:
+
+{
+"access": "<new_access_token>"
+}
+
+
+---
+
+## View Profile
+
+Get the profile details of the logged-in user.
+
+- **Method:** GET  
+- **Endpoint:** `/profile/`  
+- **Authentication:** Bearer Token required  
+- **Content-Type:** N/A
+
+### Response:
+
+{
+"access": "<new_access_token>"
+}
+
+
+---
+
+## View Profile
+
+Get the profile details of the logged-in user.
+
+- **Method:** GET  
+- **Endpoint:** `/profile/`  
+- **Authentication:** Bearer Token required  
+- **Content-Type:** N/A
+
+### Response:
+
+{
+"id": 1,
+"fullname": "John Doe",
+"email": "john@example.com",
+"profile_image": "http://127.0.0.1:8000/media/profiles/john.jpg",
+"phone_number": "1234567890",
+"address_line": "123 Main Street",
+"pincode": "123456",
+"nearest_area": "Downtown"
+}
+
+
+---
+
+## Update Profile
+
+Update profile information of logged-in user.
+
+- **Method:** PUT or PATCH  
+- **Endpoint:** `/profile/update/`  
+- **Authentication:** Bearer Token required  
+- **Content-Type:** `multipart/form-data` (for file upload) or `application/json`
+
+### Form-data or JSON example:
+
+| Key           | Type  | Description               |
+|---------------|-------|---------------------------|
+| fullname      | Text  | Full name                 |
+| profile_image | File  | Profile image file (optional) |
+| phone_number  | Text  | Phone number              |
+| address_line  | Text  | Address                   |
+| pincode      | Text   | Postal code               |
+| nearest_area | Text   | Nearest area/locality     |
+
+---
+
+## Logout (If implemented)
+
+- **Method:** POST  
+- **Endpoint:** `/logout/`  
+- **Authentication:** Bearer Token required  
+- **Content-Type:** `application/json`
+
+### Request Body:
+
+{
+"refresh": "<refresh_token>"
+}
+
+
+### Response:
+
+{
+"detail": "Successfully logged out."
+}
+
+
+---
+
+# Notes
+
+- Use `Authorization: Bearer <access_token>` header for all protected endpoints.
+- Passwords must respect Django’s password validation rules.
+- Profile image uploads need `multipart/form-data`.
+- Login returns JWT tokens with a custom `fullname` claim for user convenience.
+- Refresh tokens should be securely stored client-side and used to obtain new access tokens.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Shop API Documentation
 
 Base URL:  

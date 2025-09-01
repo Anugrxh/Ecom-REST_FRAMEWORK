@@ -249,6 +249,4 @@ Pass form-data similar to **Create Product** including optional multiple `produc
 
 ---
 
-You can save this content as `shop_api_documentation.md` and open in any Markdown editor or viewer.
 
-If you want, I can generate a Postman collection JSON file based on this doc for seamless API testing and share its contents here.
